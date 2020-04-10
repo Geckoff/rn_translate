@@ -1,12 +1,12 @@
 import { useState, useEffect, useCallback } from "react";
-import { Validator } from "../helpers/validators";
+import { Validator, requiredValidator } from "../helpers/validators";
 
 export type InputBusinessLogicProps<TValue> = {
     value: TValue;
     setValue: React.Dispatch<React.SetStateAction<TValue>>;
     isDisabled?: boolean;
-    validators?: Validator<TValue>[];
-    label: string;
+    validators?: Validator<string>[];
+    isRequired?: boolean;
 };
 
 export type InputBusinessLogicObject<TValue> = {
@@ -16,9 +16,9 @@ export type InputBusinessLogicObject<TValue> = {
     errorMessage: string;
     isValid: boolean;
     isDisabled: boolean;
-    label: string;
     isInvalidForced: boolean;
     forceInvalid: () => void;
+    isRequired: boolean;
 };
 
 export const useInputBusinessLogic = <TValue>({
@@ -26,7 +26,7 @@ export const useInputBusinessLogic = <TValue>({
     setValue,
     isDisabled,
     validators,
-    label
+    isRequired,
 }: InputBusinessLogicProps<TValue>): InputBusinessLogicObject<TValue> => {
     const [innerValue, setInnerValue] = useState(value);
     const [isValid, setIsValid] = useState(true);
@@ -35,16 +35,22 @@ export const useInputBusinessLogic = <TValue>({
 
     const handleChange = (newValue: TValue) => {
         setInnerValue(newValue);
-        validate(newValue);
+        if (typeof newValue === "string") {
+            validate(newValue);
+        }
         if (isValid) {
             setValue(newValue);
         }
     };
 
-    const validate = (newValue: TValue) => {
+    if (isRequired) {
+        validators = validators !== undefined ? [...validators, requiredValidator] : [requiredValidator];
+    }
+
+    const validate = (newValue: string) => {
         let newIsValid = true;
         let newErrorMessage = "";
-        validators?.forEach(validator => {
+        validators?.forEach((validator) => {
             const { isValid, errorMessage } = validator(newValue);
             if (newIsValid === true && isValid === false) {
                 newIsValid = isValid;
@@ -71,8 +77,8 @@ export const useInputBusinessLogic = <TValue>({
         errorMessage,
         isValid,
         isDisabled: !!isDisabled,
-        label,
         isInvalidForced,
-        forceInvalid
+        forceInvalid,
+        isRequired: !!isRequired,
     };
 };

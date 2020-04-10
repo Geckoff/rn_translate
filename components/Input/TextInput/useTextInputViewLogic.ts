@@ -1,9 +1,8 @@
-import { useState } from "react";
-import { TextInputBusinessLogicProps, TextInputBusinessLogicObject } from "./useTextInputBusinessLogic";
+import { TextInputBusinessLogicObject } from "./useTextInputBusinessLogic";
 import { InputViewLogicObject, useInputViewLogic } from "../Input";
 
 export type TextInputViewLogicObject = InputViewLogicObject<string> & {
-    isRequired: boolean;
+    label: string;
 };
 
 export const useTextInputViewLogic = (bl: TextInputBusinessLogicObject): TextInputViewLogicObject => ({
@@ -12,5 +11,4 @@ export const useTextInputViewLogic = (bl: TextInputBusinessLogicObject): TextInp
     onChange: bl.handleChange,
     label: bl.label,
     value: bl.innerValue,
-    isRequired: bl.isRequired
 });

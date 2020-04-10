@@ -10,9 +10,9 @@ export type InputViewLogicObject<TValue> = {
     errorMessage: string;
     isInvalid: boolean;
     onChange: (value: TValue) => void;
-    label: string;
     value: TValue;
     isValid: boolean;
+    isRequired: boolean;
 };
 
 export const useInputViewLogic = <TValue>(bl: InputBusinessLogicObject<TValue>): InputViewLogicObject<TValue> => {
@@ -44,9 +44,9 @@ export const useInputViewLogic = <TValue>(bl: InputBusinessLogicObject<TValue>):
         shouldShowInvalidErrors,
         errorMessage,
         isInvalid,
+        isRequired: bl.isRequired,
         isValid: bl.isValid,
         onChange: bl.handleChange,
-        label: bl.label,
-        value: bl.innerValue
+        value: bl.innerValue,
     };
 };

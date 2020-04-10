@@ -1,27 +1,34 @@
-import React, { useState, useMemo } from "react";
-import { StyleSheet, Text, View, ScrollView, Alert } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, Text, View, Alert } from "react-native";
 import { TextInput, useTextInputBusinessLogic } from "./components/Input/TextInput";
 import { Button } from "react-native-paper";
 import { isAlphaValidator } from "./components/Input/helpers/validators";
+import { Checkbox, useCheckboxBusinessLogic } from "./components/Input/Checkbox";
+import { Radio, useRadioBusinessLogic } from "./components/Input/Radio";
 
 const useFormBusinessLogic = () => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
+    const [isGood, setIsGood] = useState(false);
 
     const firstNameBl = useTextInputBusinessLogic({
         value: firstName,
         label: "First Name",
         setValue: setFirstName,
         isRequired: true,
-        validators: [isAlphaValidator]
+        validators: [isAlphaValidator],
     });
 
     const lastNameBl = useTextInputBusinessLogic({
         value: lastName,
         label: "Last Name",
         setValue: setLastName,
-        isRequired: true
-        //validators: [isAlphaValidator]
+        isRequired: true,
+    });
+
+    const isGoodCheckboxBl = useCheckboxBusinessLogic({
+        value: isGood,
+        setValue: setIsGood,
     });
 
     const showNames = () => {
@@ -36,17 +43,27 @@ const useFormBusinessLogic = () => {
         firstNameBl,
         lastNameBl,
         showNames,
-        isButtonDisabled
+        isButtonDisabled,
+        isGoodCheckboxBl,
     };
 };
 
 export default function App() {
-    const { firstNameBl, lastNameBl, firstName, lastName, showNames, isButtonDisabled } = useFormBusinessLogic();
+    const {
+        firstNameBl,
+        lastNameBl,
+        firstName,
+        lastName,
+        showNames,
+        isButtonDisabled,
+        isGoodCheckboxBl,
+    } = useFormBusinessLogic();
 
     return (
         <View style={styles.container}>
             <TextInput businessLogic={firstNameBl} />
             <TextInput businessLogic={lastNameBl} />
+            <Checkbox businessLogic={isGoodCheckboxBl} />
             <Text>
                 {firstName} {lastName}
             </Text>
@@ -59,6 +76,6 @@ export default function App() {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 50
-    }
+        marginTop: 50,
+    },
 });
