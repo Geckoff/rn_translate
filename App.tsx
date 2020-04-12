@@ -5,11 +5,26 @@ import { Button } from "react-native-paper";
 import { isAlphaValidator } from "./components/Input/helpers/validators";
 import { Checkbox, useCheckboxBusinessLogic } from "./components/Input/Checkbox";
 import { Radio, useRadioBusinessLogic } from "./components/Input/Radio";
+import { Select, useSelectBusinessLogic } from "./components/Input/Select";
+import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
+
+const theme = {
+    ...DefaultTheme,
+    colors: {
+        ...DefaultTheme.colors,
+        text: "#212121",
+    },
+    fontSizes: {
+        regular: 30,
+    },
+};
 
 const useFormBusinessLogic = () => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [isGood, setIsGood] = useState(false);
+    const [gender, setGender] = useState("");
+    const [status, setStatus] = useState("");
 
     const firstNameBl = useTextInputBusinessLogic({
         value: firstName,
@@ -29,6 +44,28 @@ const useFormBusinessLogic = () => {
     const isGoodCheckboxBl = useCheckboxBusinessLogic({
         value: isGood,
         setValue: setIsGood,
+        label: "Good",
+    });
+
+    const genderRadioBl = useRadioBusinessLogic({
+        value: gender,
+        setValue: setGender,
+        options: [
+            { display: "Male", value: "male" },
+            { display: "Female", value: "female" },
+            { display: "N/A", value: "na" },
+        ],
+    });
+
+    const statusSelectBl = useSelectBusinessLogic({
+        label: "Status",
+        value: status,
+        setValue: setStatus,
+        options: [
+            { display: "Illegal", value: "illegal" },
+            { display: "Citizen", value: "citizen" },
+            { display: "Permanent Resident", value: "permres" },
+        ],
     });
 
     const showNames = () => {
@@ -45,6 +82,11 @@ const useFormBusinessLogic = () => {
         showNames,
         isButtonDisabled,
         isGoodCheckboxBl,
+        genderRadioBl,
+        statusSelectBl,
+        isGood,
+        gender,
+        status,
     };
 };
 
@@ -57,25 +99,40 @@ export default function App() {
         showNames,
         isButtonDisabled,
         isGoodCheckboxBl,
+        genderRadioBl,
+        statusSelectBl,
+        isGood,
+        gender,
+        status,
     } = useFormBusinessLogic();
 
     return (
-        <View style={styles.container}>
-            <TextInput businessLogic={firstNameBl} />
-            <TextInput businessLogic={lastNameBl} />
-            <Checkbox businessLogic={isGoodCheckboxBl} />
-            <Text>
-                {firstName} {lastName}
-            </Text>
-            <Button icon="camera" mode="contained" onPress={showNames} disabled={isButtonDisabled()}>
-                Press me
-            </Button>
-        </View>
+        <PaperProvider theme={theme}>
+            <View style={styles.container}>
+                <TextInput multiline={true} numberOfLines={3} businessLogic={firstNameBl} />
+                <TextInput businessLogic={lastNameBl} />
+                <Checkbox businessLogic={isGoodCheckboxBl} />
+
+                <Radio businessLogic={genderRadioBl} />
+                <Select businessLogic={statusSelectBl} />
+                <Button icon="camera" mode="contained" onPress={showNames} disabled={isButtonDisabled()}>
+                    Press me
+                </Button>
+                <View>
+                    <Text>{firstName}</Text>
+                    <Text>{lastName}</Text>
+                    <Text>{isGood ? "good" : "not good"}</Text>
+                    <Text>{gender}</Text>
+                    <Text>{status}</Text>
+                </View>
+            </View>
+        </PaperProvider>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         marginTop: 50,
+        padding: 10,
     },
 });

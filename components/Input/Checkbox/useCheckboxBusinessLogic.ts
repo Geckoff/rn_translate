@@ -1,8 +1,12 @@
 import { InputBusinessLogicProps, InputBusinessLogicObject, useInputBusinessLogic } from "../Input";
 
-export type CheckboxBusinessLogicProps = InputBusinessLogicProps<boolean>;
+export type CheckboxBusinessLogicProps = InputBusinessLogicProps<boolean> & {
+    label?: string;
+};
 
-export type CheckboxBusinessLogicObject = InputBusinessLogicObject<boolean>;
+export type CheckboxBusinessLogicObject = InputBusinessLogicObject<boolean> & {
+    label: string;
+};
 
 export const useCheckboxBusinessLogic = ({
     value,
@@ -11,11 +15,13 @@ export const useCheckboxBusinessLogic = ({
     validators,
     label,
 }: CheckboxBusinessLogicProps): CheckboxBusinessLogicObject => {
-    return useInputBusinessLogic({
-        value,
-        setValue,
-        isDisabled,
-        validators,
-        label,
-    });
+    return {
+        ...useInputBusinessLogic({
+            value,
+            setValue,
+            isDisabled,
+            validators,
+        }),
+        label: label || "",
+    };
 };

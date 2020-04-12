@@ -7,8 +7,5 @@ export type TextInputViewLogicObject = InputViewLogicObject<string> & {
 
 export const useTextInputViewLogic = (bl: TextInputBusinessLogicObject): TextInputViewLogicObject => ({
     ...useInputViewLogic(bl),
-    isValid: bl.isValid,
-    onChange: bl.handleChange,
     label: bl.label,
-    value: bl.innerValue,
 });

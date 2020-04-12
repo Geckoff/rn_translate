@@ -3,23 +3,21 @@ import { InputViewLogicObject, useInputViewLogic } from "../Input";
 
 export type RadioViewLogicObject = InputViewLogicObject<string> & {
     options: Option[];
-    getStatus: (currentOption: Option) => "checked" | "unchecked";
-    onPress: (currentOption: Option) => void;
+    onPress: (option: Option) => void;
+    getIsChecked: (option: Option) => boolean;
 };
 
 export const useRadioViewLogic = (bl: RadioBusinessLogicObject): RadioViewLogicObject => {
-    const getStatus = (currentOption: Option) =>
-        bl.options.some((option) => currentOption.value === option.value) ? "checked" : "unchecked";
-
-    const onPress = (currentOption: Option) => {
-        bl.handleChange(currentOption.value);
+    const onPress = (option: Option) => {
+        bl.handleChange(option.value);
     };
+
+    const getIsChecked = (option: Option) => option.value === bl.value;
 
     return {
         ...useInputViewLogic(bl),
-        isValid: bl.isValid,
         options: bl.options,
-        getStatus,
         onPress,
+        getIsChecked,
     };
 };

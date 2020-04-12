@@ -7,6 +7,15 @@
     "noEmit": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    "strict": true
-  }
+    "isolatedModules": true,
+    "strict": true,
+    "baseUrl": ".",
+      "paths": {
+        "@styles/*": ["styles/*"],
+        "@components/*": ["components/*"],
+      }
+  },
+  "include": [
+    "."
+  ]
 }

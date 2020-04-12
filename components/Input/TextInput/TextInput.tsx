@@ -4,13 +4,28 @@ import { TextInput as PaperTextInput } from "react-native-paper";
 import { TextInputBusinessLogicObject } from "./useTextInputBusinessLogic";
 import { useTextInputViewLogic } from "./useTextInputViewLogic";
 import { withTheme, Theme, Caption } from "react-native-paper";
+import { TextInputProps as PaperTextInputProps } from "react-native-paper/src/components/TextInput/TextInput";
+import { appStyles } from "@styles/styles";
 
-export type TextInputProps = {
+export type TextInputProps = PaperTextInputProps & {
     businessLogic: TextInputBusinessLogicObject;
     theme: Theme;
 };
 
 export const TextInputComponent: React.SFC<TextInputProps> = ({ businessLogic, theme, ...props }) => {
+    const styles = StyleSheet.create({
+        errorWrapper: {
+            height: 21,
+        },
+        textInput: {
+            backgroundColor: "#fff",
+            color: theme.colors.text,
+            borderColor: theme.colors.text,
+            fontSize: appStyles.fonts.sizes.regular,
+        },
+        caption: { color: theme.colors.error },
+    });
+
     const { onFocus, onBlur, errorMessage, isInvalid, onChange, label, value } = useTextInputViewLogic(businessLogic);
 
     return (
@@ -23,23 +38,14 @@ export const TextInputComponent: React.SFC<TextInputProps> = ({ businessLogic, t
                 onChangeText={onChange}
                 onBlur={onBlur}
                 onFocus={onFocus}
-                mode="outlined"
+                dense={true}
                 {...props}
             />
             <View style={styles.errorWrapper}>
-                {isInvalid && <Caption style={{ color: theme.colors.error }}>{errorMessage}</Caption>}
+                {isInvalid && <Caption style={styles.caption}>{errorMessage}</Caption>}
             </View>
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    errorWrapper: {
-        height: 21,
-    },
-    textInput: {
-        height: 40,
-    },
-});
 
 export const TextInput = withTheme(TextInputComponent);
