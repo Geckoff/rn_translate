@@ -26,7 +26,9 @@ export const TextInputComponent: React.SFC<TextInputProps> = ({ businessLogic, t
         caption: { color: theme.colors.error },
     });
 
-    const { onFocus, onBlur, errorMessage, isInvalid, onChange, label, value } = useTextInputViewLogic(businessLogic);
+    const { onFocus, onBlur, errorMessage, isInvalid, onChange, label, value, isDisabled } = useTextInputViewLogic(
+        businessLogic
+    );
 
     return (
         <View>
@@ -39,6 +41,8 @@ export const TextInputComponent: React.SFC<TextInputProps> = ({ businessLogic, t
                 onBlur={onBlur}
                 onFocus={onFocus}
                 dense={true}
+                disabled={isDisabled}
+                mode="outlined"
                 {...props}
             />
             <View style={styles.errorWrapper}>

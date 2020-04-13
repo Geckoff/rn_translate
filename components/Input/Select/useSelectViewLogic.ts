@@ -1,32 +1,34 @@
 import { SelectBusinessLogicObject, Option } from "./useSelectBusinessLogic";
 import { InputViewLogicObject, useInputViewLogic } from "../Input";
-
-export type DropdownOption = {
-    value: string;
-};
+import { Theme } from "react-native-paper";
 
 export type SelectViewLogicObject = InputViewLogicObject<string> & {
-    ddOptions: DropdownOption[];
+    options: Option[];
     label: string;
-    onChangeText: (displayValue: string) => void;
-    displayValue: string;
+    textColor: string;
+    borderColor: string;
 };
 
-export const useSelectViewLogic = (bl: SelectBusinessLogicObject): SelectViewLogicObject => {
-    const ddOptions = bl.options.map((option) => ({ value: option.display }));
+const dummyOption: Option = {
+    label: "Select...",
+    value: "",
+};
 
-    const displayValue = bl.options.find((option) => option.value === bl.value)?.display || "";
-
-    const onChangeText = (displayValue: string) => {
-        const selectedOption = bl.options.find((option) => option.display === displayValue);
-        bl.handleChange(selectedOption!.value);
-    };
+export const useSelectViewLogic = (bl: SelectBusinessLogicObject, theme: Theme): SelectViewLogicObject => {
+    const inputViewLogic = useInputViewLogic(bl);
+    const options = [{ ...dummyOption, color: theme.colors.placeholder }, ...bl.options];
+    const textColor = bl.isDisabled
+        ? theme.colors.disabled
+        : bl.value === dummyOption.value
+        ? theme.colors.placeholder
+        : theme.colors.text;
+    const borderColor = bl.isDisabled ? theme.colors.disabled : theme.colors.placeholder;
 
     return {
-        ...useInputViewLogic(bl),
-        ddOptions,
+        ...inputViewLogic,
+        options,
         label: bl.label,
-        onChangeText,
-        displayValue,
+        textColor,
+        borderColor,
     };
 };

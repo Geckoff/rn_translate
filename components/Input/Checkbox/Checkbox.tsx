@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, ViewStyle } from "react-native";
 import { CheckboxBusinessLogicObject } from "./useCheckboxBusinessLogic";
 import { useCheckboxViewLogic } from "./useCheckboxViewLogic";
 import { withTheme, Theme } from "react-native-paper";
@@ -12,17 +12,19 @@ export type CheckboxProps = {
 };
 
 export const CheckboxComponent: React.SFC<CheckboxProps> = ({ businessLogic, theme, ...props }) => {
+    const { value, onPress, label, isDisabled, labelTextColor } = useCheckboxViewLogic(businessLogic, theme);
+
     const styles = StyleSheet.create({
         label: {
-            color: theme.colors.text,
+            color: labelTextColor,
             fontSize: appStyles.fonts.sizes.regular,
         },
+        disablingBlock: appStyles.styleBlocks.disablingBlock as ViewStyle,
     });
-
-    const { value, onPress, label } = useCheckboxViewLogic(businessLogic);
 
     return (
         <View>
+            {isDisabled && <View style={styles.disablingBlock}></View>}
             <BreadCheckbox
                 checkboxColor={theme.colors.primary}
                 checked={value}
@@ -30,6 +32,7 @@ export const CheckboxComponent: React.SFC<CheckboxProps> = ({ businessLogic, the
                 label={label}
                 labelStyle={styles.label}
                 size={28}
+                disabled={isDisabled}
                 {...props}
             />
         </View>

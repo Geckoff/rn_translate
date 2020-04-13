@@ -1,12 +1,11 @@
 import { InputBusinessLogicProps, InputBusinessLogicObject, useInputBusinessLogic } from "../Input";
 
 export type Option = {
-    display: string;
+    label: string;
     value: string;
-};
-
-export type SelectOption = Option & {
-    id: number;
+    key?: string;
+    color?: string;
+    displayValue?: boolean;
 };
 
 export type SelectBusinessLogicProps = InputBusinessLogicProps<string> & {

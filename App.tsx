@@ -32,6 +32,7 @@ const useFormBusinessLogic = () => {
         setValue: setFirstName,
         isRequired: true,
         validators: [isAlphaValidator],
+        isDisabled: true,
     });
 
     const lastNameBl = useTextInputBusinessLogic({
@@ -45,6 +46,7 @@ const useFormBusinessLogic = () => {
         value: isGood,
         setValue: setIsGood,
         label: "Good",
+        isDisabled: true,
     });
 
     const genderRadioBl = useRadioBusinessLogic({
@@ -55,6 +57,7 @@ const useFormBusinessLogic = () => {
             { display: "Female", value: "female" },
             { display: "N/A", value: "na" },
         ],
+        isDisabled: true,
     });
 
     const statusSelectBl = useSelectBusinessLogic({
@@ -62,10 +65,11 @@ const useFormBusinessLogic = () => {
         value: status,
         setValue: setStatus,
         options: [
-            { display: "Illegal", value: "illegal" },
-            { display: "Citizen", value: "citizen" },
-            { display: "Permanent Resident", value: "permres" },
+            { label: "Illegal", value: "illegal" },
+            { label: "Citizen", value: "citizen" },
+            { label: "Permanent Resident", value: "permres" },
         ],
+        isDisabled: true,
     });
 
     const showNames = () => {
@@ -109,7 +113,7 @@ export default function App() {
     return (
         <PaperProvider theme={theme}>
             <View style={styles.container}>
-                <TextInput multiline={true} numberOfLines={3} businessLogic={firstNameBl} />
+                <TextInput businessLogic={firstNameBl} />
                 <TextInput businessLogic={lastNameBl} />
                 <Checkbox businessLogic={isGoodCheckboxBl} />
 
