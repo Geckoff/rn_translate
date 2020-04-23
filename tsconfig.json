@@ -9,10 +9,15 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "strict": true,
+    "experimentalDecorators": true,        /* Enables experimental support for ES7 decorators. */
+    "emitDecoratorMetadata": true,  
+    "target": "es5",
     "baseUrl": ".",
       "paths": {
         "@styles/*": ["styles/*"],
         "@components/*": ["components/*"],
+        "@api/*": ["api/*"],
+        "@store/*": ["store/*"],
       }
   },
   "include": [

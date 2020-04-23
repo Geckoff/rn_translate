@@ -1,0 +1,15 @@
+Words
+    primaryTranslation: {text: string, pos: string}
+    secondaryTranslations: {text: string, pos: string}[]
+    timesRan: number
+    lastRan: number
+    timesForgot: number
+    lastForgot: number
+    listId: number
+
+Lists
+    name: string
+
+Settings
+    translateFrom: string
+    translateTo: string
