@@ -4,7 +4,7 @@ import { getRequestError } from "../reducers";
 
 export type RequestFn<TResponse> = (args: any) => Promise<TResponse>;
 
-export default function* <TResponse>(fn: RequestFn<TResponse>, args: any) {
+export default function* <TResponse>(fn: RequestFn<TResponse>, args?: any) {
     try {
         const response: TResponse = yield call(fn, args);
         if (yield select(getRequestError)) {

@@ -21,5 +21,5 @@ export function* translateWordSaga({ payload }: TranslateWordSagaProp) {
 }
 
 export function* translateWordWatch() {
-    yield takeLatest(translateWordRequest, translateWordSaga);
+    yield takeLatest(translateWordRequest as any, translateWordSaga);
 }

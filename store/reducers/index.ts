@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import networkFetch, { NetworkFetch } from "./networkFetch";
+import networkFetch, { NetworkFetch } from "./fetch/networkFetch";
 import requestError, { RequestError } from "./requestError";
-import words, { Words } from "./words";
-import languages, { Languages } from "./languages";
+import words, { Words } from "./words/words";
+import languages, { Languages } from "./languages/languages";
 
 export type State = {
     networkFetch: NetworkFetch;
@@ -18,9 +18,9 @@ export default combineReducers({
     languages,
 });
 
-export const getIsNetworkFetching = (state: State) => state.networkFetch.isNetworkFetching;
-export const getHasBeenNetworkFetched = (state: State) => state.networkFetch.hasBeenNetworkFetched;
-export const getNetworkEror = (state: State) => state.networkFetch.networkEror;
 export const getRequestError = (state: State) => state.requestError;
 export const getTranslatedWord = (state: State) => state.words.translatedWord;
 export const getLanguages = (state: State) => state.languages;
+
+export const getWordsNetworkFetch = (state: State) => state.networkFetch.wordsNetworkFetch;
+export const getLanguagesNetworkFetch = (state: State) => state.networkFetch.languagesNetworkFetch;
