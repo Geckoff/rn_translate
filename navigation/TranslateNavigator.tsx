@@ -1,14 +1,29 @@
 import React from "react";
-import { Text } from "react-native";
+import { Text, StyleSheet } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { Ionicons } from "@expo/vector-icons";
 import { AddWordNavigator } from "./AddWordNavigator";
+import { withTheme } from "react-native-paper";
+import { ThemedSFC } from "@styles/types";
+import { appStyles } from "@styles/styles";
 
 const TranslateDrawerNavigator = createDrawerNavigator();
 
-export const TranslateNavigator = () => {
+export const TranslateNavigatorComponent: ThemedSFC = ({ theme }) => {
+    const propStyles = StyleSheet.create({
+        drawerStyle: {
+            backgroundColor: theme.colors.primary,
+        },
+    });
+
     return (
-        <TranslateDrawerNavigator.Navigator>
+        <TranslateDrawerNavigator.Navigator
+            drawerContentOptions={{
+                inactiveTintColor: appStyles.fonts.colors.drawerFontColor,
+                activeTintColor: appStyles.fonts.colors.drawerFontColor,
+            }}
+            drawerStyle={propStyles.drawerStyle}
+        >
             <TranslateDrawerNavigator.Screen
                 name="WordSection"
                 component={AddWordNavigator}
@@ -33,3 +48,5 @@ export const TranslateNavigator = () => {
         </TranslateDrawerNavigator.Navigator>
     );
 };
+
+export const TranslateNavigator = withTheme(TranslateNavigatorComponent);

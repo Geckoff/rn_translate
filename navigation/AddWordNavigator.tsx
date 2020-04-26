@@ -1,12 +1,27 @@
 import React from "react";
-import { Text } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { TranslateWordScreen } from "@components/Screens/TranslateWordScreen";
+import { translateWordScreenOptions } from "@components/Screens/TranslateWordScreen";
+import { withTheme } from "react-native-paper";
+import { ThemedSFC } from "@styles/types";
+import { StackWithScreenOptions } from "./Helpers/StackWithScreenOptions";
 
 const AddWordStackNavigator = createStackNavigator();
 
-export const AddWordNavigator = () => (
-    <AddWordStackNavigator.Navigator screenOptions={{ headerStyle: { backgroundColor: "#ccc" } }}>
-        <AddWordStackNavigator.Screen name="AddWord" component={TranslateWordScreen} />
-    </AddWordStackNavigator.Navigator>
-);
+export const AddWordNavigatorComponent: ThemedSFC = ({ theme }) => {
+    return (
+        <StackWithScreenOptions
+            render={(screenOptions) => (
+                <AddWordStackNavigator.Navigator screenOptions={screenOptions}>
+                    <AddWordStackNavigator.Screen
+                        name="AddWord"
+                        component={TranslateWordScreen}
+                        options={translateWordScreenOptions}
+                    />
+                </AddWordStackNavigator.Navigator>
+            )}
+        />
+    );
+};
+
+export const AddWordNavigator = withTheme(AddWordNavigatorComponent);

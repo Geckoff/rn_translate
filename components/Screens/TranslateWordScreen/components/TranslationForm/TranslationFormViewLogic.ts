@@ -11,7 +11,7 @@ export type TranslationFormScreenViewLogicObject = {
     wordToTranslateTextInputBL: TextInputBusinessLogicObject;
 };
 
-export const useTranslationFormScreenViewLogic = ({
+export const useTranslationFormViewLogic = ({
     translateWord,
     fetchLanguages,
     langFromSelectBL,

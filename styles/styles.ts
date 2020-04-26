@@ -1,19 +1,27 @@
 import { constants } from "./constants";
+import { StyleSheet } from "react-native";
 
-const { regularFontSIze } = constants;
+const { regularFontSIze, white } = constants;
 
 export const appStyles = {
     fonts: {
         sizes: {
             regular: regularFontSIze,
         },
+        colors: {
+            drawerFontColor: white,
+        },
     },
-    styleBlocks: {
+    styleBlocks: StyleSheet.create({
         disablingBlock: {
             position: "absolute",
             width: "100%",
             height: "100%",
             zIndex: 10,
         },
-    },
+        headerStackNav: {
+            color: white,
+            marginHorizontal: 15,
+        },
+    }),
 };
