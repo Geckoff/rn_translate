@@ -1,26 +1,26 @@
 import { InputBusinessLogicProps, InputBusinessLogicObject, useInputBusinessLogic } from "../Input";
 
-export type Option = {
+export type Option<TValue> = {
     display: string;
-    value: string;
+    value: TValue;
 };
 
-export type RadioBusinessLogicProps = InputBusinessLogicProps<string> & {
-    options: Option[];
+export type RadioBusinessLogicProps<TValue> = InputBusinessLogicProps<TValue> & {
+    options: Option<TValue>[];
 };
 
-export type RadioBusinessLogicObject = InputBusinessLogicObject<string> & {
-    options: Option[];
+export type RadioBusinessLogicObject<TValue> = InputBusinessLogicObject<TValue> & {
+    options: Option<TValue>[];
 };
 
-export const useRadioBusinessLogic = ({
+export const useRadioBusinessLogic = <TValue>({
     value,
     setValue,
     isDisabled,
     isRequired,
     validators,
     options,
-}: RadioBusinessLogicProps): RadioBusinessLogicObject => {
+}: RadioBusinessLogicProps<TValue>): RadioBusinessLogicObject<TValue> => {
     return {
         ...useInputBusinessLogic({
             value,

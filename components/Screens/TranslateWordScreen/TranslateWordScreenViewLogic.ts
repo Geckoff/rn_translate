@@ -1,5 +1,19 @@
-import { useTranslateWordScreenBusinessLogic } from "./TranslateWordScreenBusinessLogic";
+import {
+    useTranslateWordScreenBusinessLogic,
+    TranslateWordScreenBusinessLogicObject,
+} from "./TranslateWordScreenBusinessLogic";
+
+export type TranslateWordScreenViewLogicObject = {
+    translationFormBusinessLogic: TranslateWordScreenBusinessLogicObject;
+    shouldLoadTranslationOptions: boolean;
+};
 
 export const useTranslateWordScreenViewLogic = () => {
-    return useTranslateWordScreenBusinessLogic();
+    const { translatedWord, translationFormBusinessLogic } = useTranslateWordScreenBusinessLogic();
+    const shouldLoadTranslationOptions = translatedWord !== null;
+
+    return {
+        translationFormBusinessLogic,
+        shouldLoadTranslationOptions,
+    };
 };

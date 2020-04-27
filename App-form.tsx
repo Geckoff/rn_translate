@@ -10,13 +10,7 @@ import { Select, useSelectBusinessLogic } from "./components/Input/Select";
 import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 import { useConnection } from "./Db";
 import { Author } from "./author";
-import { Provider } from "react-redux";
 import getStore from "./store/store";
-import { useSelector, useDispatch } from "react-redux";
-import { getWords } from "./store/reducers";
-import { translateWord } from "./store/actions";
-
-const store = getStore({});
 
 const useFormBusinessLogic = () => {
     const [firstName, setFirstName] = useState("");
@@ -26,8 +20,6 @@ const useFormBusinessLogic = () => {
     const [gender, setGender] = useState("");
     const [status, setStatus] = useState("");
     const [authors, setAuthors] = useState([]);
-    const words = useSelector(getWords);
-    const dispatch = useDispatch();
 
     const firstNameBl = useTextInputBusinessLogic({
         value: firstName,
@@ -57,7 +49,7 @@ const useFormBusinessLogic = () => {
         isDisabled: true,
     });
 
-    const genderRadioBl = useRadioBusinessLogic({
+    const genderRadioBl = useRadioBusinessLogic<string>({
         value: gender,
         setValue: setGender,
         options: [
@@ -65,7 +57,6 @@ const useFormBusinessLogic = () => {
             { display: "Female", value: "female" },
             { display: "N/A", value: "na" },
         ],
-        isDisabled: true,
     });
 
     const statusSelectBl = useSelectBusinessLogic({
@@ -96,19 +87,12 @@ const useFormBusinessLogic = () => {
         Alert.alert(`${firstName} ${lastName}`);
     };
 
-    const isButtonDisabled = () => firstName.length === 0 || lastName.length === 0;
-
-    const translateAction = () => {
-        dispatch(translateWord(wordToTranslate));
-    };
-
     return {
         firstName,
         lastName,
         firstNameBl,
         lastNameBl,
         showNames,
-        isButtonDisabled,
         isGoodCheckboxBl,
         genderRadioBl,
         statusSelectBl,
@@ -118,10 +102,8 @@ const useFormBusinessLogic = () => {
         getAuthors,
         postAuthor,
         authors,
-        words,
         wordToTranslate,
         wordToTranslateBl,
-        translateAction,
     };
 };
 
@@ -132,7 +114,6 @@ export const AppInner = () => {
         firstName,
         lastName,
         showNames,
-        isButtonDisabled,
         isGoodCheckboxBl,
         genderRadioBl,
         statusSelectBl,
@@ -142,9 +123,7 @@ export const AppInner = () => {
         getAuthors,
         postAuthor,
         authors,
-        words,
         wordToTranslateBl,
-        translateAction,
     } = useFormBusinessLogic();
 
     useConnection();
@@ -154,11 +133,11 @@ export const AppInner = () => {
             <View style={styles.container}>
                 <TextInput businessLogic={firstNameBl} />
                 <TextInput businessLogic={lastNameBl} />
-                {/*<Checkbox businessLogic={isGoodCheckboxBl} />
+                <Checkbox businessLogic={isGoodCheckboxBl} />
 
                 <Radio businessLogic={genderRadioBl} />
-                <Select businessLogic={statusSelectBl} />*/}
-                <Button mode="contained" onPress={postAuthor} disabled={isButtonDisabled()}>
+                <Select businessLogic={statusSelectBl} />
+                {/* <Button mode="contained" onPress={postAuthor} disabled={isButtonDisabled()}>
                     Post Author
                 </Button>
                 <Button mode="contained" onPress={getAuthors}>
@@ -170,7 +149,7 @@ export const AppInner = () => {
                             {author.firstName} {author.lastName}
                         </Text>
                     ))}
-                </View>
+                </View> */}
                 {/*<View>
                     <Text>{firstName}</Text>
                     <Text>{lastName}</Text>
@@ -179,18 +158,12 @@ export const AppInner = () => {
                     <Text>{status}</Text>
                 </View>*/}
             </View>
-            <View style={{ marginTop: 30 }}>
+            {/* <View style={{ marginTop: 30 }}>
                 <TextInput businessLogic={wordToTranslateBl} />
                 <Button mode="contained" onPress={translateAction}>
                     Translate Word
                 </Button>
-            </View>
-            <View>
-                <Text>WORDS</Text>
-                {words.map((word: string, i: number) => (
-                    <Text key={i}>{word}</Text>
-                ))}
-            </View>
+            </View> */}
         </PaperProvider>
     );
 };
@@ -203,9 +176,5 @@ const styles = StyleSheet.create({
 });
 
 export default function App() {
-    return (
-        <Provider store={store}>
-            <AppInner />
-        </Provider>
-    );
+    return <AppInner />;
 }

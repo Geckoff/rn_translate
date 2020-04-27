@@ -1,12 +1,14 @@
 import { constants } from "./constants";
 import { StyleSheet } from "react-native";
 
-const { regularFontSIze, white } = constants;
+const { regularFontSIze, white, drawerIconSize, headerIconSize } = constants;
 
 export const appStyles = {
     fonts: {
         sizes: {
             regular: regularFontSIze,
+            drawerIconSize,
+            headerIconSize,
         },
         colors: {
             drawerFontColor: white,

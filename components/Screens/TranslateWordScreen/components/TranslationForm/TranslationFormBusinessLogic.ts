@@ -16,6 +16,7 @@ export type TranslationFormBusinessLogicObject = {
     langFrom: string;
     langTo: string;
     wordToTranslate: string;
+    languagesObject: Languages;
 };
 
 export const useTranslationFormBusinessLogic = (): TranslationFormBusinessLogicObject => {
@@ -81,5 +82,6 @@ export const useTranslationFormBusinessLogic = (): TranslationFormBusinessLogicO
         langFrom,
         wordToTranslateTextInputBL,
         wordToTranslate,
+        languagesObject,
     };
 };

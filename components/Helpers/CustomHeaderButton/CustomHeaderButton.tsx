@@ -1,14 +1,14 @@
 import React from "react";
-import { HeaderButton } from "react-navigation-header-buttons";
+import { HeaderButton, HeaderButtonProps } from "react-navigation-header-buttons";
 import { Ionicons } from "@expo/vector-icons";
 import { appStyles } from "@styles/styles";
 
-export const CustomHeaderButton = (props: any) => {
+export const CustomHeaderButton: React.SFC<HeaderButtonProps> = (props) => {
     return (
         <HeaderButton
             {...props}
             IconComponent={Ionicons}
-            iconSize={23}
+            iconSize={appStyles.fonts.sizes.headerIconSize}
             color={appStyles.fonts.colors.drawerFontColor}
         />
     );

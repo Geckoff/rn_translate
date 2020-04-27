@@ -7,19 +7,20 @@ import { ThemedSFC } from "@styles/types";
 
 export const LoadingComponent: ThemedSFC = ({ theme }) => {
     const { shouldShowLoadingBar, shouldShowOverlay } = uesLoadingViewLogic();
-    const propStyles = StyleSheet.create({
-        overlay: { display: shouldShowOverlay ? "flex" : "none" },
-    });
 
     return (
-        <View style={{ ...styles.overlay, ...propStyles.overlay }}>
-            <ProgressBar
-                trackStyle={styles.progressBar}
-                visible={shouldShowLoadingBar}
-                height={8}
-                color={theme.colors.primary}
-            />
-        </View>
+        <>
+            {shouldShowOverlay && (
+                <View style={styles.overlay}>
+                    <ProgressBar
+                        trackStyle={styles.progressBar}
+                        visible={shouldShowLoadingBar}
+                        height={8}
+                        color={theme.colors.primary}
+                    />
+                </View>
+            )}
+        </>
     );
 };
 
@@ -29,7 +30,6 @@ const styles = StyleSheet.create({
         width: "100%",
         height: "100%",
         zIndex: 10,
-        //backgroundColor: "green",
     },
     progressBar: {
         position: "absolute",

@@ -2,18 +2,21 @@ import { RadioBusinessLogicObject, Option } from "./useRadioBusinessLogic";
 import { InputViewLogicObject, useInputViewLogic } from "../Input";
 import { Theme } from "react-native-paper";
 
-export type RadioViewLogicObject = InputViewLogicObject<string> & {
-    options: Option[];
-    onPress: (option: Option) => void;
-    getIsChecked: (option: Option) => boolean;
+export type RadioViewLogicObject<TValue> = InputViewLogicObject<TValue> & {
+    options: Option<TValue>[];
+    onPress: (option: Option<TValue>) => void;
+    getIsChecked: (option: Option<TValue>) => boolean;
     labelTextColor: string;
 };
 
-export const useRadioViewLogic = (bl: RadioBusinessLogicObject, theme: Theme): RadioViewLogicObject => {
-    const onPress = (option: Option) => {
+export const useRadioViewLogic = <TValue>(
+    bl: RadioBusinessLogicObject<TValue>,
+    theme: Theme
+): RadioViewLogicObject<TValue> => {
+    const onPress = (option: Option<TValue>) => {
         bl.handleChange(option.value);
     };
-    const getIsChecked = (option: Option) => option.value === bl.value;
+    const getIsChecked = (option: Option<TValue>) => option.value === bl.value;
     const labelTextColor = bl.isDisabled ? theme.colors.disabled : theme.colors.text;
 
     return {

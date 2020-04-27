@@ -9,6 +9,7 @@ export type TranslationFormScreenViewLogicObject = {
     langFromSelectBL: SelectBusinessLogicObject;
     langToSelectBL: SelectBusinessLogicObject;
     wordToTranslateTextInputBL: TextInputBusinessLogicObject;
+    languagePairErr: string;
 };
 
 export const useTranslationFormViewLogic = ({
@@ -20,7 +21,8 @@ export const useTranslationFormViewLogic = ({
     langFrom,
     langTo,
     wordToTranslate,
-}: TranslationFormBusinessLogicObject) => {
+    languagesObject,
+}: TranslationFormBusinessLogicObject): TranslationFormScreenViewLogicObject => {
     useEffect(() => {
         fetchLanguages();
     }, []);
@@ -29,7 +31,23 @@ export const useTranslationFormViewLogic = ({
         translateWord();
     };
 
-    const isTranslateButtonDisabled = langFrom === "" || langTo === "" || wordToTranslate === "";
+    const getShouldShowLangPairError = (): boolean => {
+        if (languagesObject === null) {
+            return false;
+        }
+
+        if (langFrom !== "" && langTo !== "") {
+            const langPairsTxt = languagesObject.dirs.map((langPair) => `${langPair[0]}${langPair[1]}`);
+            return !langPairsTxt.some((langPair) => langPair === `${langFrom}${langTo}`);
+        } else {
+            return false;
+        }
+    };
+
+    const isTranslateButtonDisabled =
+        langFrom === "" || langTo === "" || wordToTranslate === "" || getShouldShowLangPairError();
+
+    const languagePairErr = getShouldShowLangPairError() ? "Sorry, this language pair is not supported" : "";
 
     return {
         handleTranslateWord,
@@ -37,5 +55,6 @@ export const useTranslationFormViewLogic = ({
         langFromSelectBL,
         langToSelectBL,
         wordToTranslateTextInputBL,
+        languagePairErr,
     };
 };
