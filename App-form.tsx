@@ -11,6 +11,7 @@ import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 import { useConnection } from "./Db";
 import { Author } from "./author";
 import getStore from "./store/store";
+import NetInfo from "@react-native-community/netinfo";
 
 const useFormBusinessLogic = () => {
     const [firstName, setFirstName] = useState("");
@@ -20,6 +21,10 @@ const useFormBusinessLogic = () => {
     const [gender, setGender] = useState("");
     const [status, setStatus] = useState("");
     const [authors, setAuthors] = useState([]);
+    const unsubscribe = NetInfo.addEventListener((state) => {
+        console.log("Connection type", state.type);
+        console.log("Is connected?", state.isConnected);
+    });
 
     const firstNameBl = useTextInputBusinessLogic({
         value: firstName,

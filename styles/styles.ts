@@ -12,6 +12,7 @@ export const appStyles = {
         },
         colors: {
             drawerFontColor: white,
+            noConnectionColor: white,
         },
     },
     styleBlocks: StyleSheet.create({

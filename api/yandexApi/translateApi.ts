@@ -4,7 +4,7 @@ import { FormatTransTranslation, Translate, LangsData } from "./";
 
 const keyTrans = "trnsl.1.1.20181026T211617Z.43ed87828a41aa29.c999292f09c532680a6ec0ca15698b75c408d637";
 const instanceTrans = axios.create({
-    baseURL: "https://translate.yandex.net/api/v1.5/tr.json/"
+    baseURL: "https://translate.yandex.net/api/v1.5/tr.json/",
 });
 
 export const translate: Translate = async ({ langFrom, langTo, word }: TranslateObject) => {
@@ -26,13 +26,13 @@ export const formatTranslation: FormatTransTranslation = (response: any, word: s
             : [
                   {
                       text: response.text[0],
-                      pos: ""
-                  }
+                      pos: "",
+                  },
               ];
 
     return {
         word,
-        translationOptions
+        translationOptions,
     };
 };
 

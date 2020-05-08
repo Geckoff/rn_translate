@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslationFormViewLogic } from "./TranslationFormViewLogic";
 import { Button } from "react-native-paper";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import { TranslationFormBusinessLogicObject } from "./TranslationFormBusinessLogic";
 import { Select } from "@components/Input/Select";
 import { TextInput } from "@components/Input/TextInput";
@@ -40,6 +40,64 @@ export const TranslationFormComponent: ThemedSFC<TranslationFormProps> = ({ tran
             <Button disabled={isTranslateButtonDisabled} mode="contained" onPress={handleTranslateWord}>
                 Translate Word
             </Button>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
         </ScreenView>
     );
 };

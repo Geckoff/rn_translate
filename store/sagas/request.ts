@@ -12,7 +12,10 @@ export default function* <TResponse>(fn: RequestFn<TResponse>, args?: any) {
         }
         return response;
     } catch (error) {
-        yield put(networkError(error));
+        console.warn(error);
+        const errorMessage =
+            error && typeof error.message === "string" ? error.message : "Requested resource is not responding";
+        yield put(networkError(errorMessage));
         throw error;
     }
 }

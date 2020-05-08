@@ -11,7 +11,6 @@ const instanceDict = axios.create({
 export const translate = async ({ langFrom, langTo, word }: TranslateObject) => {
     try {
         const response = await instanceDict(`lookup?key=${keyDict}&lang=${langFrom}-${langTo}&text=${word}`);
-        console.log(response);
         return response;
     } catch (err) {
         if (err.response.data.code === 501) {

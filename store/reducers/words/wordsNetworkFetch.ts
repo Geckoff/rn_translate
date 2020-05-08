@@ -1,4 +1,5 @@
 import { translateWordRequest, translateWordSuccess, translateWordFailure } from "@store/actions";
+import { clearNetworkErrors } from "@store/actions";
 import { combineReducers } from "redux";
 import { handleActions } from "redux-actions";
 import { IsNetworkFetching, HasBeenNetworkFetched, NetworkEror } from "@store/reducers/fetch";
@@ -26,6 +27,7 @@ export const networkEror = handleActions<NetworkEror>(
         [translateWordRequest.toString()]: () => null,
         [translateWordSuccess.toString()]: () => null,
         [translateWordFailure.toString()]: (_, action) => action.payload,
+        [clearNetworkErrors.toString()]: () => null,
     },
     null
 );
