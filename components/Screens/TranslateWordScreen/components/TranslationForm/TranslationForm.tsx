@@ -2,20 +2,14 @@ import React from "react";
 import { useTranslationFormViewLogic } from "./TranslationFormViewLogic";
 import { Button } from "react-native-paper";
 import { View, StyleSheet, Text } from "react-native";
-import { TranslationFormBusinessLogicObject } from "./TranslationFormBusinessLogic";
 import { Select } from "@components/Input/Select";
 import { TextInput } from "@components/Input/TextInput";
-import { ScreenView } from "@components/Helpers/ScreenView";
 import { withTheme } from "react-native-paper";
 import { ThemedSFC } from "@styles/types";
 import { Label } from "@components/Input/Label";
 import { ErrorCaption } from "@components/Input/ErrorCaption";
 
-export type TranslationFormProps = {
-    translationFormBusinessLogic: TranslationFormBusinessLogicObject;
-};
-
-export const TranslationFormComponent: ThemedSFC<TranslationFormProps> = ({ translationFormBusinessLogic, theme }) => {
+export const TranslationFormComponent: ThemedSFC = ({ theme }) => {
     const {
         handleTranslateWord,
         isTranslateButtonDisabled,
@@ -23,10 +17,10 @@ export const TranslationFormComponent: ThemedSFC<TranslationFormProps> = ({ tran
         langToSelectBL,
         wordToTranslateTextInputBL,
         languagePairErr,
-    } = useTranslationFormViewLogic(translationFormBusinessLogic);
+    } = useTranslationFormViewLogic();
 
     return (
-        <ScreenView>
+        <>
             <View style={styles.translateFromWrapper}>
                 <Label>Translate From:</Label>
                 <Select businessLogic={langFromSelectBL} />
@@ -40,65 +34,7 @@ export const TranslationFormComponent: ThemedSFC<TranslationFormProps> = ({ tran
             <Button disabled={isTranslateButtonDisabled} mode="contained" onPress={handleTranslateWord}>
                 Translate Word
             </Button>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-            <Text>Test</Text>
-        </ScreenView>
+        </>
     );
 };
 

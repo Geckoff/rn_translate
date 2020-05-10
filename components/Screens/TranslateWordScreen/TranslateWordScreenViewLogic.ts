@@ -1,19 +1,14 @@
-import {
-    useTranslateWordScreenBusinessLogic,
-    TranslateWordScreenBusinessLogicObject,
-} from "./TranslateWordScreenBusinessLogic";
+import { useTranslateWordScreenBusinessLogic } from "./TranslateWordScreenBusinessLogic";
 
 export type TranslateWordScreenViewLogicObject = {
-    translationFormBusinessLogic: TranslateWordScreenBusinessLogicObject;
     shouldLoadTranslationOptions: boolean;
 };
 
-export const useTranslateWordScreenViewLogic = () => {
-    const { translatedWord, translationFormBusinessLogic } = useTranslateWordScreenBusinessLogic();
+export const useTranslateWordScreenViewLogic = (): TranslateWordScreenViewLogicObject => {
+    const { translatedWord } = useTranslateWordScreenBusinessLogic();
     const shouldLoadTranslationOptions = translatedWord !== null;
 
     return {
-        translationFormBusinessLogic,
         shouldLoadTranslationOptions,
     };
 };

@@ -15,6 +15,9 @@ export const appStyles = {
             noConnectionColor: white,
         },
     },
+    screens: {
+        backgroundColor: white,
+    },
     styleBlocks: StyleSheet.create({
         disablingBlock: {
             position: "absolute",

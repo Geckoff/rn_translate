@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { TranslationFormBusinessLogicObject } from "./TranslationFormBusinessLogic";
+import { useTranslationFormBusinessLogic } from "./TranslationFormBusinessLogic";
 import { SelectBusinessLogicObject } from "@components/Input/Select";
 import { TextInputBusinessLogicObject } from "@components/Input/TextInput";
 
@@ -12,17 +12,19 @@ export type TranslationFormScreenViewLogicObject = {
     languagePairErr: string;
 };
 
-export const useTranslationFormViewLogic = ({
-    translateWord,
-    fetchLanguages,
-    langFromSelectBL,
-    langToSelectBL,
-    wordToTranslateTextInputBL,
-    langFrom,
-    langTo,
-    wordToTranslate,
-    languagesObject,
-}: TranslationFormBusinessLogicObject): TranslationFormScreenViewLogicObject => {
+export const useTranslationFormViewLogic = (): TranslationFormScreenViewLogicObject => {
+    const {
+        translateWord,
+        fetchLanguages,
+        langFromSelectBL,
+        langToSelectBL,
+        wordToTranslateTextInputBL,
+        langFrom,
+        langTo,
+        wordToTranslate,
+        languagesObject,
+    } = useTranslationFormBusinessLogic();
+
     useEffect(() => {
         fetchLanguages();
     }, []);
