@@ -1,5 +1,5 @@
 import { createActions } from "redux-actions";
-import { TranslationResult } from "@api/translate";
+import { TranslateObject } from "@api/translate";
 
 export const { translateWordSuccess, translateWordFailure, translateWordReset } = createActions<undefined>(
     "TRANSLATE_WORD_SUCCESS",
@@ -7,4 +7,4 @@ export const { translateWordSuccess, translateWordFailure, translateWordReset } 
     "TRANSLATE_WORD_RESET"
 );
 
-export const { translateWordRequest } = createActions<TranslationResult>("TRANSLATE_WORD_REQUEST");
+export const { translateWordRequest } = createActions<TranslateObject>("TRANSLATE_WORD_REQUEST");

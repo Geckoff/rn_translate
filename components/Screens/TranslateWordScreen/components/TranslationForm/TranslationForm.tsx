@@ -29,7 +29,9 @@ export const TranslationFormComponent: ThemedSFC = ({ theme }) => {
                 <Label>Translate To:</Label>
                 <Select businessLogic={langToSelectBL} />
             </View>
-            <ErrorCaption>{languagePairErr}</ErrorCaption>
+            <View style={styles.errorCaptionWrapper}>
+                <ErrorCaption>{languagePairErr}</ErrorCaption>
+            </View>
             <TextInput businessLogic={wordToTranslateTextInputBL} />
             <Button disabled={isTranslateButtonDisabled} mode="contained" onPress={handleTranslateWord}>
                 Translate Word
@@ -41,6 +43,9 @@ export const TranslationFormComponent: ThemedSFC = ({ theme }) => {
 const styles = StyleSheet.create({
     translateFromWrapper: {
         marginBottom: 5,
+    },
+    errorCaptionWrapper: {
+        transform: [{ translateY: -2 }],
     },
 });
 

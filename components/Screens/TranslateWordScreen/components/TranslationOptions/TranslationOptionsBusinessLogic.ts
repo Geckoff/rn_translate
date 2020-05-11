@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useTextInputBusinessLogic, TextInputBusinessLogicObject } from "@components/Input/TextInput";
 import { useRadioBusinessLogic, RadioBusinessLogicObject, Option } from "@components/Input/Radio";
-import { TranslatedWord } from "@store/reducers/words";
+import { StoreTranslationResult } from "@store/reducers/words";
 import { getTranslatedWord } from "@store/reducers";
 import { TranslationResult, TranslationOption } from "@api/translate";
 
@@ -14,18 +14,15 @@ export type TranslationOptionBusinessLogicObject = {
     getDataToSave: () => void;
     customTranslation: string;
     customTranslationIndicator: string;
+    translatedWord: string;
+    langFrom: string;
+    langTo: string;
 };
 
 export const useTranslationOptionBusinessLogic = (): TranslationOptionBusinessLogicObject => {
     const customTranslationIndicator = "#CUSTOM_TRANSLATION#";
-    const translatedWord = useSelector(getTranslatedWord) as TranslationResult;
+    const translatedWord = useSelector(getTranslatedWord) as StoreTranslationResult;
     const [customTranslation, setCustomTranslation] = useState<string>("");
-
-    const customTranslationTextInputBL = useTextInputBusinessLogic({
-        value: customTranslation,
-        label: "Your Translation",
-        setValue: setCustomTranslation,
-    });
 
     const translationOptions: TranslationOption[] = useMemo(
         () => [...translatedWord!.translationOptions, { text: customTranslationIndicator, pos: "" }],
@@ -43,6 +40,12 @@ export const useTranslationOptionBusinessLogic = (): TranslationOptionBusinessLo
         value: selectedTranslation,
         setValue: setSelectedTranslation,
         options: translationRadioOptions,
+    });
+
+    const customTranslationTextInputBL = useTextInputBusinessLogic({
+        value: customTranslation,
+        label: "Your Translation",
+        setValue: setCustomTranslation,
     });
 
     const getDataToSave = () => {
@@ -70,5 +73,8 @@ export const useTranslationOptionBusinessLogic = (): TranslationOptionBusinessLo
         getDataToSave,
         customTranslation,
         customTranslationIndicator,
+        translatedWord: translatedWord.word,
+        langFrom: translatedWord.langFrom,
+        langTo: translatedWord.langTo,
     };
 };

@@ -3,7 +3,12 @@ import { combineReducers } from "redux";
 import { handleActions } from "redux-actions";
 import { TranslationResult } from "@api/translate";
 
-export type TranslatedWord = TranslationResult | null;
+export type StoreTranslationResult = TranslationResult & {
+    langFrom: string;
+    langTo: string;
+};
+
+export type TranslatedWord = StoreTranslationResult | null;
 
 export const translatedWord = handleActions<TranslatedWord>(
     {
