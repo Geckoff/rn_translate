@@ -1,6 +1,9 @@
 import { createActions } from "redux-actions";
 
-export const { networkError, clearNetworkErrors } = createActions<undefined>("NETWORK_ERROR", "CLEAR_NETWORK_ERRORS");
+export type NetworkFailure = undefined | string;
+
+export const { networkError } = createActions<string>("NETWORK_ERROR");
+export const { clearNetworkErrors } = createActions<undefined>("CLEAR_NETWORK_ERRORS");
 
 export const { networkOnline, networkOffline, networkCheckData } = createActions<undefined>(
     "NETWORK_ONLINE",

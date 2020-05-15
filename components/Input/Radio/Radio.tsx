@@ -38,7 +38,7 @@ export const RadioComponent: <TValue>(
                     <RadioButton
                         checked={getIsChecked(option)}
                         onPress={onPress.bind(null, option)}
-                        label={option.display}
+                        label={option.display as string}
                         labelStyle={styles.label}
                         radioButtonColor={theme.colors.primary}
                         disabled={isDisabled}

@@ -1,7 +1,7 @@
 import { takeLatest, call, put } from "redux-saga/effects";
 import { languagesRequest, languagesSuccess, languagesFailure } from "@store/actions/languages";
 import { getLangs, LanguagesInfo } from "@api/translate";
-import request from "../request";
+import request from "../network/request";
 
 export function* getLanguagesSaga() {
     try {

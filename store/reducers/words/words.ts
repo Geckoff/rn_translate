@@ -1,12 +1,12 @@
-import { translateWordRequest, translateWordSuccess, translateWordFailure, translateWordReset } from "../../actions";
+import {
+    translateWordRequest,
+    translateWordSuccess,
+    translateWordFailure,
+    translateWordReset,
+    StoreTranslationResult,
+} from "../../actions";
 import { combineReducers } from "redux";
 import { handleActions } from "redux-actions";
-import { TranslationResult } from "@api/translate";
-
-export type StoreTranslationResult = TranslationResult & {
-    langFrom: string;
-    langTo: string;
-};
 
 export type TranslatedWord = StoreTranslationResult | null;
 

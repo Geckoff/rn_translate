@@ -18,6 +18,8 @@
         "@components/*": ["components/*"],
         "@api/*": ["api/*"],
         "@store/*": ["store/*"],
+        "@db/*": ["db/*"],
+        "@navigation/*": ["navigation/*"],
       }
   },
   "include": [

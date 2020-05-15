@@ -2,9 +2,10 @@ import { useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useTextInputBusinessLogic, TextInputBusinessLogicObject } from "@components/Input/TextInput";
 import { useRadioBusinessLogic, RadioBusinessLogicObject, Option } from "@components/Input/Radio";
-import { StoreTranslationResult } from "@store/reducers/words";
+import { StoreTranslationResult } from "@store/actions";
 import { getTranslatedWord } from "@store/reducers";
-import { TranslationResult, TranslationOption } from "@api/translate";
+import { TranslationOption } from "@api/translate";
+import { getTranslationOptionLabel } from "./getTranslationOptionLabel";
 
 export type TranslationOptionsRadioBL = RadioBusinessLogicObject<TranslationOption>;
 
@@ -30,7 +31,7 @@ export const useTranslationOptionBusinessLogic = (): TranslationOptionBusinessLo
     );
 
     const translationRadioOptions: Option<TranslationOption>[] = translationOptions.map((translationOption) => ({
-        display: translationOption.text,
+        display: getTranslationOptionLabel(translationOption),
         value: translationOption,
     }));
 

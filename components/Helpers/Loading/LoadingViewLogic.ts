@@ -6,11 +6,11 @@ export type LoadingViewLogicObject = {
 };
 
 export const uesLoadingViewLogic = (): LoadingViewLogicObject => {
-    const { wordsIsNetworkFetching, languagesIsNetworkFetching } = useLoadingBusinessLogic();
+    const { wordsIsNetworkFetching, languagesIsNetworkFetching, isDbConnecting } = useLoadingBusinessLogic();
 
-    const shouldShowOverlay = wordsIsNetworkFetching || languagesIsNetworkFetching;
+    const shouldShowLoadingBar = wordsIsNetworkFetching || languagesIsNetworkFetching;
 
-    const shouldShowLoadingBar = shouldShowOverlay;
+    const shouldShowOverlay = shouldShowLoadingBar || isDbConnecting;
 
     return {
         shouldShowOverlay,

@@ -1,9 +1,13 @@
 import { takeLatest, call, put } from "redux-saga/effects";
-import { translateWordRequest, translateWordSuccess, translateWordFailure } from "@store/actions/words";
+import {
+    translateWordRequest,
+    translateWordSuccess,
+    translateWordFailure,
+    StoreTranslationResult,
+} from "@store/actions/words";
 import { translateWord, TranslationResult, TranslateObject } from "@api/translate";
-import request from "../request";
+import request from "../network/request";
 import { Action } from "redux";
-import { StoreTranslationResult } from "@store/reducers/words";
 
 export interface TranslateWordSagaProp extends Action {
     payload: TranslateObject;

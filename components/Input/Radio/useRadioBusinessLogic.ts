@@ -1,7 +1,7 @@
 import { InputBusinessLogicProps, InputBusinessLogicObject, useInputBusinessLogic } from "../Input";
 
 export type Option<TValue> = {
-    display: string;
+    display: string | JSX.Element;
     value: TValue;
 };
 
