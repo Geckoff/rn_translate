@@ -4,11 +4,11 @@ import { ThemedSFC } from "@styles/types";
 import { withTheme } from "react-native-paper";
 import { TranslationOption } from "@api/translate";
 
-export type TranslationOptionLabelProps = {
+export type WordTranslationsLabelProps = {
     translationOption: TranslationOption;
 };
 
-export const TranslationOptionLabelComponent: ThemedSFC<TranslationOptionLabelProps> = ({ translationOption }) => {
+export const WordTranslationsLabelComponent: ThemedSFC<WordTranslationsLabelProps> = ({ translationOption }) => {
     return (
         <Text>
             {translationOption.text} <Caption>{translationOption.pos}</Caption>
@@ -16,8 +16,8 @@ export const TranslationOptionLabelComponent: ThemedSFC<TranslationOptionLabelPr
     );
 };
 
-export const TranslationOptionLabel = withTheme(TranslationOptionLabelComponent);
+export const WordTranslationsLabel = withTheme(WordTranslationsLabelComponent);
 
-export const getTranslationOptionLabel = (translationOption: TranslationOption) => (
-    <TranslationOptionLabel translationOption={translationOption} />
+export const getWordTranslationsLabel = (translationOption: TranslationOption) => (
+    <WordTranslationsLabel translationOption={translationOption} />
 );

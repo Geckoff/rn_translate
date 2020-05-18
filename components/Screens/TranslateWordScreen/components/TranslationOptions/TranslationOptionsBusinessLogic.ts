@@ -1,56 +1,33 @@
-import { useState, useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useTextInputBusinessLogic, TextInputBusinessLogicObject } from "@components/Input/TextInput";
-import { useRadioBusinessLogic, RadioBusinessLogicObject, Option } from "@components/Input/Radio";
-import { StoreTranslationResult } from "@store/actions";
-import { getTranslatedWord } from "@store/reducers";
 import { TranslationOption } from "@api/translate";
-import { getTranslationOptionLabel } from "./getTranslationOptionLabel";
+import { WordTranslationsBusinessLogicObject } from "./WordTranslations/WordTranslationsBusinessLogic";
+import { useSelector } from "react-redux";
+import { getTranslatedWord } from "@store/reducers";
+import { StoreTranslationResult } from "@store/actions";
 
-export type TranslationOptionsRadioBL = RadioBusinessLogicObject<TranslationOption>;
-
-export type TranslationOptionBusinessLogicObject = {
-    customTranslationTextInputBL: TextInputBusinessLogicObject;
-    translationOptionsRadioBL: TranslationOptionsRadioBL;
-    getDataToSave: () => void;
-    customTranslation: string;
-    customTranslationIndicator: string;
-    translatedWord: string;
-    langFrom: string;
-    langTo: string;
+export type TranslationOptionBusinessLogicProps = {
+    wordTranslationsBusinessLogic: WordTranslationsBusinessLogicObject;
 };
 
-export const useTranslationOptionBusinessLogic = (): TranslationOptionBusinessLogicObject => {
-    const customTranslationIndicator = "#CUSTOM_TRANSLATION#";
-    const translatedWord = useSelector(getTranslatedWord) as StoreTranslationResult;
-    const [customTranslation, setCustomTranslation] = useState<string>("");
+export type TranslationOptionBusinessLogicObject = {
+    getDataToSave: () => void;
+    translatedWordObject: StoreTranslationResult;
+    isUsingBlankCustomTranslation: boolean;
+};
 
-    const translationOptions: TranslationOption[] = useMemo(
-        () => [...translatedWord!.translationOptions, { text: customTranslationIndicator, pos: "" }],
-        [translatedWord]
-    );
-
-    const translationRadioOptions: Option<TranslationOption>[] = translationOptions.map((translationOption) => ({
-        display: getTranslationOptionLabel(translationOption),
-        value: translationOption,
-    }));
-
-    const [selectedTranslation, setSelectedTranslation] = useState<TranslationOption>(translationRadioOptions[0].value);
-
-    const translationOptionsRadioBL = useRadioBusinessLogic<TranslationOption>({
-        value: selectedTranslation,
-        setValue: setSelectedTranslation,
-        options: translationRadioOptions,
-    });
-
-    const customTranslationTextInputBL = useTextInputBusinessLogic({
-        value: customTranslation,
-        label: "Your Translation",
-        setValue: setCustomTranslation,
-    });
+export const useTranslationOptionBusinessLogic = ({
+    wordTranslationsBusinessLogic,
+}: TranslationOptionBusinessLogicProps): TranslationOptionBusinessLogicObject => {
+    const {
+        translationOptionsRadioBL,
+        customTranslationIndicator,
+        customTranslation,
+        translationOptions,
+        isUsingBlankCustomTranslation,
+    } = wordTranslationsBusinessLogic;
+    const translatedWordObject = useSelector(getTranslatedWord) as StoreTranslationResult;
 
     const getDataToSave = () => {
-        const word = translatedWord.word;
+        const word = translatedWordObject.word;
         const selectedOption = translationOptionsRadioBL.value;
         const primaryTranslation: TranslationOption =
             selectedOption.text === customTranslationIndicator ? { text: customTranslation, pos: "" } : selectedOption;
@@ -69,13 +46,8 @@ export const useTranslationOptionBusinessLogic = (): TranslationOptionBusinessLo
     };
 
     return {
-        customTranslationTextInputBL,
-        translationOptionsRadioBL,
         getDataToSave,
-        customTranslation,
-        customTranslationIndicator,
-        translatedWord: translatedWord.word,
-        langFrom: translatedWord.langFrom,
-        langTo: translatedWord.langTo,
+        translatedWordObject,
+        isUsingBlankCustomTranslation,
     };
 };

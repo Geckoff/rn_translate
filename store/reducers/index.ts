@@ -6,6 +6,7 @@ import words, { Words } from "./words/words";
 import languages, { Languages } from "./languages/languages";
 import isOnline, { IsOnline } from "./network/networkStatus";
 import db, { Db } from "./db/db";
+import lists, { Lists } from "./lists/lists";
 
 export type State = {
     networkConnectionBusiness: NetworkConnectionBusiness;
@@ -15,6 +16,7 @@ export type State = {
     languages: Languages;
     isOnline: IsOnline;
     db: Db;
+    lists: Lists;
 };
 
 export default combineReducers({
@@ -25,6 +27,7 @@ export default combineReducers({
     languages,
     isOnline,
     db,
+    lists,
 });
 
 export const getRequestError = (state: State) => state.requestError;
@@ -33,6 +36,7 @@ export const getLanguages = (state: State) => state.languages;
 export const getIsOnline = (state: State) => state.isOnline;
 export const getDbConnected = (state: State) => state.db.dbConnected;
 export const getDbError = (state: State) => state.db.dbError;
+export const getLists = (state: State) => state.lists.lists;
 
 // Network connection business
 export const getWordsNetworkFetch = (state: State) => state.networkConnectionBusiness.wordsNetworkFetch;
@@ -40,3 +44,4 @@ export const getLanguagesNetworkFetch = (state: State) => state.networkConnectio
 
 // DB connection business
 export const getDbConnection = (state: State) => state.dbConectionBusiness.dbConnection;
+export const getListsDbFetch = (state: State) => state.dbConectionBusiness.listsDbFetch;

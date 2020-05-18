@@ -1,2 +1,2 @@
 export * from "./words";
-export * from "./wordsNetworkFetch";
+export * from "./wordsNetworkBusiness";

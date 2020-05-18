@@ -1,25 +1,19 @@
 import React from "react";
-import { useTranslationOptionsViewLogic } from "./TranslationOptionsViewLogic";
-import { View, StyleSheet, ScrollView } from "react-native";
-import { TextInput } from "@components/Input/TextInput";
-import { Radio } from "@components/Input/Radio";
-import { TranslationOption } from "@api/translate";
-import { Button, Title, Headline, Subheading, Caption, withTheme } from "react-native-paper";
-import { ErrorCaption } from "@components/Input/ErrorCaption";
+import { useTranslationOptionsViewLogic, useTranslationOptionBusinessLogic } from "./";
+import { View, StyleSheet } from "react-native";
+import { Button, Headline, Subheading, withTheme } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 import { ThemedSFC } from "@styles/types";
+import { WordTranslations, useWordTranslationsBusinessLogic } from "./WordTranslations";
+import { useListsPickerBusinessLogic, ListsPicker } from "./ListsPicker";
 
 export const TranslationOptionsComponent: ThemedSFC = ({ theme }) => {
-    const {
-        customTranslationTextInputBL,
-        translationOptionsRadioBL,
-        getDataToSave,
-        customTranslationError,
-        isAddButtonDisabled,
-        langFrom,
-        langTo,
-        translatedWord,
-    } = useTranslationOptionsViewLogic();
+    const listsPickerBusinessLogic = useListsPickerBusinessLogic();
+    const wordTranslationsBusinessLogic = useWordTranslationsBusinessLogic();
+    const translationOptionBusinessLogic = useTranslationOptionBusinessLogic({ wordTranslationsBusinessLogic });
+    const { getDataToSave, isAddButtonDisabled, langFrom, langTo, translatedWord } = useTranslationOptionsViewLogic({
+        translationOptionBusinessLogic,
+    });
 
     const propStyles = StyleSheet.create({
         translationDirectionLangs: {
@@ -43,13 +37,8 @@ export const TranslationOptionsComponent: ThemedSFC = ({ theme }) => {
                     </View>
                     <Subheading style={propStyles.translationDirectionLangs}> {langTo}</Subheading>
                 </View>
-                <Radio<TranslationOption> businessLogic={translationOptionsRadioBL} />
-                <View style={styles.customTranslationWrapper}>
-                    <TextInput businessLogic={customTranslationTextInputBL} />
-                    <View style={styles.errorCaptionWrapper}>
-                        <ErrorCaption>{customTranslationError}</ErrorCaption>
-                    </View>
-                </View>
+                <WordTranslations wordTranslationsBusinessLogic={wordTranslationsBusinessLogic} />
+                <ListsPicker listsPickerBusinessLogic={listsPickerBusinessLogic} />
             </View>
             <Button disabled={isAddButtonDisabled} mode="contained" onPress={getDataToSave}>
                 Add Word
@@ -61,22 +50,12 @@ export const TranslationOptionsComponent: ThemedSFC = ({ theme }) => {
 export const TranslationOptions = withTheme(TranslationOptionsComponent);
 
 const styles = StyleSheet.create({
-    customTranslationWrapper: {
-        position: "absolute",
-        bottom: -22,
-        right: 0,
-        width: "89.5%",
-    },
     translationOptions: {
         marginBottom: 10,
         marginTop: 10,
     },
     radioOptionsWrapper: {
         marginBottom: 25,
-    },
-    errorCaptionWrapper: {
-        position: "absolute",
-        bottom: -1,
     },
     translationDirection: {
         flexDirection: "row",

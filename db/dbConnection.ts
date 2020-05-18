@@ -10,3 +10,5 @@ export const connect = () => {
         type: "expo",
     });
 };
+
+//find ~/Library/Developer/ -name testtranslate4

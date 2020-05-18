@@ -3,7 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { TranslateWordScreen } from "@components/Screens/TranslateWordScreen";
 import { getTtranslateWordScreenOptions } from "@components/Helpers/ScreenOptions";
 import { ThemedSFC } from "@styles/types";
-import { StackWithScreenOptions } from "./Helpers/StackWithScreenOptions";
+import { StackWithScreenOptions } from "../Helpers/StackWithScreenOptions";
 
 const AddWordStackNavigator = createStackNavigator();
 

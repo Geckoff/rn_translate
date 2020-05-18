@@ -2,7 +2,7 @@ import React from "react";
 import { Text, StyleSheet } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
-import { AddWordNavigator } from "./AddWordNavigator";
+import { AddWordNavigator } from "./AddWordNavigator/AddWordNavigator";
 import { withTheme } from "react-native-paper";
 import { ThemedSFC } from "@styles/types";
 import { appStyles } from "@styles/styles";
