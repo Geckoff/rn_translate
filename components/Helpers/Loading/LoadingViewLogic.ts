@@ -1,4 +1,5 @@
 import { useLoadingBusinessLogic } from "./LoadingBusinessLogic";
+import { DbConnectionBusiness, NetworkConnectionBusiness } from "@store/reducers/connectionBusiness";
 
 export type LoadingViewLogicObject = {
     shouldShowOverlay: boolean;
@@ -6,11 +7,27 @@ export type LoadingViewLogicObject = {
 };
 
 export const uesLoadingViewLogic = (): LoadingViewLogicObject => {
-    const { wordsIsNetworkFetching, languagesIsNetworkFetching, isDbConnecting } = useLoadingBusinessLogic();
+    const { networkConnectionBusiness, dbConnectionBusiness } = useLoadingBusinessLogic();
 
-    const shouldShowLoadingBar = wordsIsNetworkFetching || languagesIsNetworkFetching;
+    let isDbConnectionBusy = false;
+    for (const dbConnectionBusinessSection in dbConnectionBusiness) {
+        if (dbConnectionBusiness[dbConnectionBusinessSection as keyof DbConnectionBusiness].isDbConnectionBusy) {
+            isDbConnectionBusy = true;
+        }
+    }
 
-    const shouldShowOverlay = shouldShowLoadingBar || isDbConnecting;
+    let isNetworkConnectionBusy = false;
+    for (const networkConnectionBusinessSection in networkConnectionBusiness) {
+        if (
+            networkConnectionBusiness[networkConnectionBusinessSection as keyof NetworkConnectionBusiness]
+                .isNetworkConnectionBusy
+        ) {
+            isNetworkConnectionBusy = true;
+        }
+    }
+
+    const shouldShowLoadingBar = isNetworkConnectionBusy;
+    const shouldShowOverlay = shouldShowLoadingBar || isDbConnectionBusy;
 
     return {
         shouldShowOverlay,

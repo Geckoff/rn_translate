@@ -34,7 +34,7 @@ export const ListsPicker: React.SFC<ListPickerProps> = ({ listsPickerBusinessLog
                 </View>
             ) : (
                 isSelectedCheckboxesBLs.map((isSelectedCheckboxesBL, i) => (
-                    <Checkbox businessLogic={isSelectedCheckboxesBL} />
+                    <Checkbox key={i} businessLogic={isSelectedCheckboxesBL} />
                 ))
             )}
         </View>

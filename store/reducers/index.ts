@@ -38,10 +38,6 @@ export const getDbConnected = (state: State) => state.db.dbConnected;
 export const getDbError = (state: State) => state.db.dbError;
 export const getLists = (state: State) => state.lists.lists;
 
-// Network connection business
-export const getWordsNetworkFetch = (state: State) => state.networkConnectionBusiness.wordsNetworkFetch;
-export const getLanguagesNetworkFetch = (state: State) => state.networkConnectionBusiness.languagesNetworkFetch;
-
-// DB connection business
-export const getDbConnection = (state: State) => state.dbConectionBusiness.dbConnection;
-export const getListsDbFetch = (state: State) => state.dbConectionBusiness.listsDbFetch;
+// loading state
+export const getDbConnectionBusiness = (state: State) => state.dbConectionBusiness;
+export const getNetworkConnectionBusiness = (state: State) => state.networkConnectionBusiness;
