@@ -10,7 +10,10 @@ import { useListsPickerBusinessLogic, ListsPicker } from "./ListsPicker";
 export const TranslationOptionsComponent: ThemedSFC = ({ theme }) => {
     const listsPickerBusinessLogic = useListsPickerBusinessLogic();
     const wordTranslationsBusinessLogic = useWordTranslationsBusinessLogic();
-    const translationOptionBusinessLogic = useTranslationOptionBusinessLogic({ wordTranslationsBusinessLogic });
+    const translationOptionBusinessLogic = useTranslationOptionBusinessLogic({
+        wordTranslationsBusinessLogic,
+        listsPickerBusinessLogic,
+    });
     const { getDataToSave, isAddButtonDisabled, langFrom, langTo, translatedWord } = useTranslationOptionsViewLogic({
         translationOptionBusinessLogic,
     });
@@ -23,7 +26,7 @@ export const TranslationOptionsComponent: ThemedSFC = ({ theme }) => {
 
     return (
         <View style={styles.translationOptions}>
-            <View style={styles.radioOptionsWrapper}>
+            <View style={styles.translationOptionsWrapper}>
                 <Headline>{translatedWord}</Headline>
                 <View style={styles.translationDirection}>
                     <Subheading style={propStyles.translationDirectionLangs}>{langFrom} </Subheading>
@@ -51,11 +54,11 @@ export const TranslationOptions = withTheme(TranslationOptionsComponent);
 
 const styles = StyleSheet.create({
     translationOptions: {
-        marginBottom: 10,
-        marginTop: 10,
+        marginBottom: 20,
+        marginTop: 15,
     },
-    radioOptionsWrapper: {
-        marginBottom: 25,
+    translationOptionsWrapper: {
+        marginBottom: 15,
     },
     translationDirection: {
         flexDirection: "row",

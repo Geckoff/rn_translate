@@ -6,21 +6,25 @@ export type ListPickerVIewLogicObject = {
     selectListError: string;
     availableListsError: string;
     shouldShowAvailableListsError: boolean;
+    goToListCreation: () => void;
 };
 
-export const useListPickerVIewLogic = (listsPickerBusinessLogic: ListsPickerBusinessLogicObject) => {
+export const useListPickerVIewLogic = (
+    listsPickerBusinessLogic: ListsPickerBusinessLogicObject
+): ListPickerVIewLogicObject => {
     const { isSelectedCheckboxesBLs, selectedLists, lists } = listsPickerBusinessLogic;
 
-    const selectListError = selectedLists.length === 0 ? "At least one list should be selected" : "";
-
-    const availableListsError = "Please, create a list first";
-
+    const selectListError = selectedLists.length === 0 ? "Please, select at least one" : "";
+    const availableListsError = "You don't have any lists. Create one and start adding words to it.";
     const shouldShowAvailableListsError = lists.length === 0;
+
+    const goToListCreation = () => {};
 
     return {
         isSelectedCheckboxesBLs,
         selectListError,
         availableListsError,
         shouldShowAvailableListsError,
+        goToListCreation,
     };
 };

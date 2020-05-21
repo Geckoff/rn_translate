@@ -3,19 +3,23 @@ import { WordTranslationsBusinessLogicObject } from "./WordTranslations/WordTran
 import { useSelector } from "react-redux";
 import { getTranslatedWord } from "@store/reducers";
 import { StoreTranslationResult } from "@store/actions";
+import { ListsPickerBusinessLogicObject } from "./ListsPicker";
 
 export type TranslationOptionBusinessLogicProps = {
     wordTranslationsBusinessLogic: WordTranslationsBusinessLogicObject;
+    listsPickerBusinessLogic: ListsPickerBusinessLogicObject;
 };
 
 export type TranslationOptionBusinessLogicObject = {
     getDataToSave: () => void;
     translatedWordObject: StoreTranslationResult;
     isUsingBlankCustomTranslation: boolean;
+    hasSelectedLists: boolean;
 };
 
 export const useTranslationOptionBusinessLogic = ({
     wordTranslationsBusinessLogic,
+    listsPickerBusinessLogic,
 }: TranslationOptionBusinessLogicProps): TranslationOptionBusinessLogicObject => {
     const {
         translationOptionsRadioBL,
@@ -25,6 +29,8 @@ export const useTranslationOptionBusinessLogic = ({
         isUsingBlankCustomTranslation,
     } = wordTranslationsBusinessLogic;
     const translatedWordObject = useSelector(getTranslatedWord) as StoreTranslationResult;
+
+    const hasSelectedLists = listsPickerBusinessLogic.selectedLists.length !== 0;
 
     const getDataToSave = () => {
         const word = translatedWordObject.word;
@@ -42,12 +48,16 @@ export const useTranslationOptionBusinessLogic = ({
             )
             // remove custom translation if it's blank
             .filter((translationOption) => translationOption.text !== "");
-        console.log(word, primaryTranslation, secondaryTranslations);
+        console.log(word, "word");
+        console.log(primaryTranslation, "primaryTranslation");
+        console.log(secondaryTranslations, "secondaryTranslations");
+        console.log(listsPickerBusinessLogic.selectedLists, "selectedLists");
     };
 
     return {
         getDataToSave,
         translatedWordObject,
         isUsingBlankCustomTranslation,
+        hasSelectedLists,
     };
 };

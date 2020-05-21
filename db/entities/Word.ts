@@ -50,6 +50,9 @@ export class Word extends BaseEntity {
     @Column({ type: "int", nullable: true })
     lastForgot!: number;
 
+    @Column({ type: "int", default: 0 })
+    archived!: 0 | 1;
+
     @ManyToMany((type) => List)
     @JoinTable()
     lists!: List[];
