@@ -1,9 +1,10 @@
 import { TranslationOption } from "@api/translate";
 import { WordTranslationsBusinessLogicObject } from "./WordTranslations/WordTranslationsBusinessLogic";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { getTranslatedWord } from "@store/reducers";
-import { StoreTranslationResult } from "@store/actions";
+import { StoreTranslationResult, addWordRequest } from "@store/actions";
 import { ListsPickerBusinessLogicObject } from "./ListsPicker";
+import { Word } from "@db/entities";
 
 export type TranslationOptionBusinessLogicProps = {
     wordTranslationsBusinessLogic: WordTranslationsBusinessLogicObject;
@@ -11,7 +12,7 @@ export type TranslationOptionBusinessLogicProps = {
 };
 
 export type TranslationOptionBusinessLogicObject = {
-    getDataToSave: () => void;
+    saveWord: () => void;
     translatedWordObject: StoreTranslationResult;
     isUsingBlankCustomTranslation: boolean;
     hasSelectedLists: boolean;
@@ -29,11 +30,11 @@ export const useTranslationOptionBusinessLogic = ({
         isUsingBlankCustomTranslation,
     } = wordTranslationsBusinessLogic;
     const translatedWordObject = useSelector(getTranslatedWord) as StoreTranslationResult;
+    const dispatch = useDispatch();
 
     const hasSelectedLists = listsPickerBusinessLogic.selectedLists.length !== 0;
 
     const getDataToSave = () => {
-        const word = translatedWordObject.word;
         const selectedOption = translationOptionsRadioBL.value;
         const primaryTranslation: TranslationOption =
             selectedOption.text === customTranslationIndicator ? { text: customTranslation, pos: "" } : selectedOption;
@@ -48,14 +49,33 @@ export const useTranslationOptionBusinessLogic = ({
             )
             // remove custom translation if it's blank
             .filter((translationOption) => translationOption.text !== "");
-        console.log(word, "word");
-        console.log(primaryTranslation, "primaryTranslation");
-        console.log(secondaryTranslations, "secondaryTranslations");
-        console.log(listsPickerBusinessLogic.selectedLists, "selectedLists");
+
+        const lists = listsPickerBusinessLogic.selectedLists.map((selectedList) => selectedList.list);
+
+        return {
+            word: translatedWordObject.word,
+            langFrom: translatedWordObject.langFrom,
+            langTo: translatedWordObject.langTo,
+            primaryTranslation,
+            secondaryTranslations,
+            lists,
+        };
+    };
+
+    const saveWord = () => {
+        const dataToSave = getDataToSave();
+        const word = new Word();
+        word.word = dataToSave.word;
+        word.primaryTranslation = dataToSave.primaryTranslation;
+        word.secondaryTranslations = dataToSave.secondaryTranslations;
+        word.langFrom = dataToSave.langFrom;
+        word.langTo = dataToSave.langTo;
+        word.lists = dataToSave.lists;
+        dispatch(addWordRequest(word));
     };
 
     return {
-        getDataToSave,
+        saveWord,
         translatedWordObject,
         isUsingBlankCustomTranslation,
         hasSelectedLists,

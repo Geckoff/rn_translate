@@ -5,7 +5,7 @@ export type TranslationOptionsViewLogicProps = {
 };
 
 export type TranslationOptionsViewLogicObject = {
-    getDataToSave: () => void;
+    handleAddWord: () => void;
     isAddButtonDisabled: boolean;
     translatedWord: string;
     langFrom: string;
@@ -16,7 +16,7 @@ export const useTranslationOptionsViewLogic = ({
     translationOptionBusinessLogic,
 }: TranslationOptionsViewLogicProps): TranslationOptionsViewLogicObject => {
     const {
-        getDataToSave,
+        saveWord,
         translatedWordObject,
         isUsingBlankCustomTranslation,
         hasSelectedLists,
@@ -24,8 +24,10 @@ export const useTranslationOptionsViewLogic = ({
 
     const isAddButtonDisabled = isUsingBlankCustomTranslation || !hasSelectedLists;
 
+    const handleAddWord = saveWord;
+
     return {
-        getDataToSave,
+        handleAddWord,
         translatedWord: translatedWordObject.word,
         langFrom: translatedWordObject.langFrom,
         langTo: translatedWordObject.langTo,

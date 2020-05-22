@@ -1,11 +1,11 @@
 import React from "react";
 import { useTranslationOptionsViewLogic, useTranslationOptionBusinessLogic } from "./";
 import { View, StyleSheet } from "react-native";
-import { Button, Headline, Subheading, withTheme } from "react-native-paper";
-import { Ionicons } from "@expo/vector-icons";
+import { Button, withTheme } from "react-native-paper";
 import { ThemedSFC } from "@styles/types";
 import { WordTranslations, useWordTranslationsBusinessLogic } from "./WordTranslations";
 import { useListsPickerBusinessLogic, ListsPicker } from "./ListsPicker";
+import { WordTranslationsHeader } from "./WordTranslationsHeader";
 
 export const TranslationOptionsComponent: ThemedSFC = ({ theme }) => {
     const listsPickerBusinessLogic = useListsPickerBusinessLogic();
@@ -14,36 +14,18 @@ export const TranslationOptionsComponent: ThemedSFC = ({ theme }) => {
         wordTranslationsBusinessLogic,
         listsPickerBusinessLogic,
     });
-    const { getDataToSave, isAddButtonDisabled, langFrom, langTo, translatedWord } = useTranslationOptionsViewLogic({
+    const { handleAddWord, isAddButtonDisabled, langFrom, langTo, translatedWord } = useTranslationOptionsViewLogic({
         translationOptionBusinessLogic,
-    });
-
-    const propStyles = StyleSheet.create({
-        translationDirectionLangs: {
-            color: theme.colors.placeholder,
-        },
     });
 
     return (
         <View style={styles.translationOptions}>
             <View style={styles.translationOptionsWrapper}>
-                <Headline>{translatedWord}</Headline>
-                <View style={styles.translationDirection}>
-                    <Subheading style={propStyles.translationDirectionLangs}>{langFrom} </Subheading>
-                    <View>
-                        <Ionicons
-                            style={styles.translationDirectionArrow}
-                            name="ios-arrow-round-forward"
-                            size={27}
-                            color={theme.colors.placeholder}
-                        />
-                    </View>
-                    <Subheading style={propStyles.translationDirectionLangs}> {langTo}</Subheading>
-                </View>
+                <WordTranslationsHeader word={translatedWord} langFrom={langFrom} langTo={langTo} />
                 <WordTranslations wordTranslationsBusinessLogic={wordTranslationsBusinessLogic} />
                 <ListsPicker listsPickerBusinessLogic={listsPickerBusinessLogic} />
             </View>
-            <Button disabled={isAddButtonDisabled} mode="contained" onPress={getDataToSave}>
+            <Button disabled={isAddButtonDisabled} mode="contained" onPress={handleAddWord}>
                 Add Word
             </Button>
         </View>
@@ -59,13 +41,5 @@ const styles = StyleSheet.create({
     },
     translationOptionsWrapper: {
         marginBottom: 15,
-    },
-    translationDirection: {
-        flexDirection: "row",
-        alignItems: "center",
-        marginTop: -12,
-    },
-    translationDirectionArrow: {
-        marginTop: 4,
     },
 });

@@ -41,3 +41,4 @@ export const getLists = (state: State) => state.lists.lists;
 // loading state
 export const getDbConnectionBusiness = (state: State) => state.dbConectionBusiness;
 export const getNetworkConnectionBusiness = (state: State) => state.networkConnectionBusiness;
+export const getListsDbFetch = (state: State) => state.dbConectionBusiness.listsDbFetch;
