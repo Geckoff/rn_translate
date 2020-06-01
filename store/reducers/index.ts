@@ -7,6 +7,7 @@ import languages, { Languages } from "./languages/languages";
 import isOnline, { IsOnline } from "./network/networkStatus";
 import db, { Db } from "./db/db";
 import lists, { Lists } from "./lists/lists";
+import notification, { Notification } from "./helpers/notification";
 
 export type State = {
     networkConnectionBusiness: NetworkConnectionBusiness;
@@ -17,6 +18,7 @@ export type State = {
     isOnline: IsOnline;
     db: Db;
     lists: Lists;
+    notification: Notification;
 };
 
 export default combineReducers({
@@ -28,6 +30,7 @@ export default combineReducers({
     isOnline,
     db,
     lists,
+    notification,
 });
 
 export const getRequestError = (state: State) => state.requestError;
@@ -37,6 +40,10 @@ export const getIsOnline = (state: State) => state.isOnline;
 export const getDbConnected = (state: State) => state.db.dbConnected;
 export const getDbError = (state: State) => state.db.dbError;
 export const getLists = (state: State) => state.lists.lists;
+
+//notification
+export const getIsNotificationVisible = (state: State) => state.notification.isNotificationVisible;
+export const getNotificationInfo = (state: State) => state.notification.notificationInfo;
 
 // loading state
 export const getDbConnectionBusiness = (state: State) => state.dbConectionBusiness;

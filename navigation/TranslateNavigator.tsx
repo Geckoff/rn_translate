@@ -40,7 +40,7 @@ export const TranslateNavigatorComponent: ThemedSFC = ({ theme }) => {
             />
             <TranslateDrawerNavigator.Screen
                 name="ListsSection"
-                component={() => <Text>ListsSection</Text>}
+                component={ListsSection}
                 options={{
                     drawerIcon: (props) => (
                         <Ionicons name={"md-list"} size={appStyles.fonts.sizes.drawerIconSize} color={props.color} />
@@ -49,7 +49,7 @@ export const TranslateNavigatorComponent: ThemedSFC = ({ theme }) => {
             />
             <TranslateDrawerNavigator.Screen
                 name="StatSection"
-                component={() => <Text>StatSection</Text>}
+                component={StatSection}
                 options={{
                     drawerIcon: (props) => (
                         <Ionicons name={"md-list"} size={appStyles.fonts.sizes.drawerIconSize} color={props.color} />
@@ -61,3 +61,11 @@ export const TranslateNavigatorComponent: ThemedSFC = ({ theme }) => {
 };
 
 export const TranslateNavigator = withTheme(TranslateNavigatorComponent);
+
+const ListsSection = () => {
+    return <Text>ListsSection</Text>;
+};
+
+const StatSection = () => {
+    return <Text>StatSection</Text>;
+};
